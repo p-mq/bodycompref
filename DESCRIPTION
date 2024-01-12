@@ -1,7 +1,7 @@
 Package: bodycompref
 Type: Package
 Title: Reference values for CT-based body composition
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
   person(given = "J. Peter",
          family = "Marquardt",
@@ -9,9 +9,9 @@ Authors@R:
          email = "peter@kmarquardt.de",
          comment = c(ORCID = "0000-0002-5596-1357"))
 Maintainer: J. Peter Marquardt <peter@kmarquardt.de>
-Description: Tool to get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort.
-    Reference values for skeletal muscle based on Tonnesen et al, Investigative Radiology, 2023 (doi).
-    Reference values for adipose tissue based on Marquardt et al, 2023 (doi).
+Description: Tool to get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort. 
+  For more information on the underlying research, please visit our website which also includes a graphical interface.
+URL: https://bodycomp-metrics.mgh.harvard.edu, https://github.com/p-mq/bodycompref
 Depends: R (>= 4.0.0)
 Imports:
   assertthat,
