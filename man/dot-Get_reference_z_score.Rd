@@ -25,7 +25,7 @@
 
 \item{measurement}{numeric, raw value of measurement}
 
-\item{verbose}{logical, should messages be discplayed}
+\item{verbose}{logical, should messages be displayed}
 
 \item{digits}{integer, digits to round percentile to}
 }

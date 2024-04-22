@@ -88,7 +88,18 @@ testthat::test_that("percent_predicted works", {
 
 testthat::test_that(".Get_lambda works", {
   testthat::expect_equal(.Get_lambda("CSFA", "Female", "T5"), 0.6)
-  testthat::expect_equal(.Get_lambda("CSVFA", "Female"), 0.3)
+  testthat::expect_equal(.Get_lambda("CSVFA", "Female", "L3"), 0.3)
   testthat::expect_equal(.Get_lambda("SMG", "Female", "T5"), NA)
 })
 
+
+testthat::test_that("L3 models work", {
+  metric <- c("TAT", "TATI", "VAT_SAT_ratio")
+  sex <- c("Female", "Male", "Female")
+  level <- c("L3", "L3", "L3")
+  age <- c(40, 60, 70)
+  measurement <- c(200, 200, 2)
+  testthat::expect_equal(percent_predicted(metric, sex, level, age, measurement), c(87, 128, 384))
+  level <- c("T5", "T8", "L3")
+  testthat::expect_error(percent_predicted(metric, sex, level, age, measurement), regexp = 'level not equal to "L3"')
+})

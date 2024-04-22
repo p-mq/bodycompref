@@ -20,9 +20,9 @@
 #'
 #' @author J. Peter Marquardt
 .Get_reference_percentile <- function(metric, sex, level, age, measurement, verbose=FALSE, digits=0) {
-  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG"))
+  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
-  assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
+  assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::is.count(age)
   assertthat::assert_that(38 <= age && age <= 80)
   assertthat::is.number(measurement)
@@ -79,7 +79,7 @@
 #' @param level character, used vertebral level
 #' @param age integer, age
 #' @param measurement numeric, raw value of measurement
-#' @param verbose logical, should messages be discplayed
+#' @param verbose logical, should messages be displayed
 #' @param digits integer, digits to round percentile to
 #'
 #' @return numeric, corresponding z-score
@@ -90,7 +90,7 @@
 #'
 #' @author J. Peter Marquardt
 .Get_reference_z_score <- function(metric, sex, level, age, measurement, verbose=FALSE, digits=2) {
-  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG"))
+  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
   assertthat::is.count(age)
@@ -98,7 +98,7 @@
   assertthat::is.number(measurement)
   assertthat::assert_that(is.logical(verbose))
   assertthat::is.count(digits)
-  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG")) {
+  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
   # Make sure measurement value is in the supported range
@@ -162,14 +162,14 @@
 #'
 #' @author J. Peter Marquardt
 .Get_reference_value <- function(metric, sex, level, age, percentile=NULL, z_score=NULL, verbose=FALSE, digits=0) {
-  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG"))
+  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
   assertthat::is.count(age)
   assertthat::assert_that(38 <= age && age <= 80)
   assertthat::assert_that(is.logical(verbose))
   assertthat::is.count(digits)
-  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG")) {
+  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
 
@@ -249,14 +249,14 @@
 #'
 #' @author J. Peter Marquardt
 .Get_percent_predicted <- function(metric, sex, level, age, measurement, verbose=FALSE, digits=0) {
-  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG"))
+  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
   assertthat::is.count(age)
   assertthat::assert_that(38 <= age && age <= 80)
   assertthat::assert_that(is.logical(verbose))
   assertthat::is.count(digits)
-  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG")) {
+  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
   # Make sure measurement value is in the supported range
@@ -271,7 +271,7 @@
   }
 
 
-  expected_measurement <- .Get_reference_value(metric, sex, level, age, percentile = 50)
+  expected_measurement <- .Get_reference_value(metric, sex, level, age, percentile = 50, digits = 5)
   percent_predicted <- round(measurement * 100 / expected_measurement, digits = digits)
 
 
@@ -293,10 +293,12 @@
 #'
 #' @author J Peter Marquardt
 .Get_lambda <- function(metric, sex, level=NA) {
-  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG"))
+  assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
-  if (metric %in% c("CSFA", "SATI", "SATRA", "SATG")) assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
-
+  assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
+  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
+    assertthat::assert_that(level == "L3")
+  }
 
   if(metric %in% c("CSMA", "SMI", "SMRA", "SMG")) {
     lambda <- NA  # Muscle metrics were not transfomed before fitting
@@ -307,7 +309,7 @@
   else if(metric %in% c("CSFA", "SATI", "SATRA", "SATG")) {
     lambda <- lambdas[[metric]][[paste0("Sex_", sex)]][[paste0("vertebral_level_", level)]]
   }
-  else if(metric %in% c("CSVFA", "VATI", "VATRA", "VATG")) {
+  else if(metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     # L3 only
     lambda <- lambdas[[metric]][[paste0("Sex_", sex)]]
   }
@@ -510,14 +512,19 @@ percent_predicted <- function(metric, sex, level, age, measurement, verbose=FALS
 #'    - VATI: Visceral Adipose Tissue Index [cm²/m²]
 #'    - VATRA: Visceral Adipose Tissue Radioattenuation [HU]
 #'    - VATG: Visceral Adipose Tissue Gauge [cm² * HU/ m²]
+#'    - TAT: Cross-sectional Total Adipose Tissue Area [cm²] (SATA + VATA)
+#'    - TATI: Total Adipose Tissue Index [cm²/m²] (SATI + VATI)
+#'    - VAT_SAT_ratio: VAT/SAT ratio []
 #'
 #'  Measurement values must be >= -124 for SATRA and VATRA, <= -1 for SATG and VATG, and >= 1 for all other metrics.
 #'
 #'  The reference values are based on LMSP models constructed from the Framingham Heart Study published in the following publications:
 #'    - Tonnesen PE, Mercaldo ND, Tahir I, Dietrich ASW, Amari W, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
 #'      Muscle Reference Values from Thoracic and Abdominal CT for Sarcopenia Assessment: The Framingham Heart Study.
-#'      Accepted for publication in Investigative Radiology, 2023.
-#'    - Unpublished, Marquardt et al.
+#'      Investigative Radiology, 2023.
+#'    - Marquardt JP, Tonnesen PE, Mercaldo ND, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
+#'      Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT.
+#'      Under review by Investigative Radiology, 2024.
 #'
 #' @param metric character (vector), body composition metric.
 #' @param sex character (vector), ""Female" or "Male"

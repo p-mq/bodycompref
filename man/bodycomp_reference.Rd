@@ -62,14 +62,19 @@ Reference models are available for the following metrics:
    - VATI: Visceral Adipose Tissue Index [cm²/m²]
    - VATRA: Visceral Adipose Tissue Radioattenuation [HU]
    - VATG: Visceral Adipose Tissue Gauge [cm² * HU/ m²]
+   - TAT: Cross-sectional Total Adipose Tissue Area [cm²] (SATA + VATA)
+   - TATI: Total Adipose Tissue Index [cm²/m²] (SATI + VATI)
+   - VAT_SAT_ratio: VAT/SAT ratio []
 
  Measurement values must be >= -124 for SATRA and VATRA, <= -1 for SATG and VATG, and >= 1 for all other metrics.
 
  The reference values are based on LMSP models constructed from the Framingham Heart Study published in the following publications:
    - Tonnesen PE, Mercaldo ND, Tahir I, Dietrich ASW, Amari W, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
      Muscle Reference Values from Thoracic and Abdominal CT for Sarcopenia Assessment: The Framingham Heart Study.
-     Accepted for publication in Investigative Radiology, 2023.
-   - Unpublished, Marquardt et al.
+     Investigative Radiology, 2023.
+   - Marquardt JP, Tonnesen PE, Mercaldo ND, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
+     Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT.
+     Under review by Investigative Radiology, 2024.
 }
 \examples{
 bodycomp_reference(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
