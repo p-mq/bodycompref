@@ -34,7 +34,7 @@ bodycomp_reference(
 
 \item{z_score}{numeric (vector), z score to return value for. If both percentile and z_score are given, only percentile is evaluated}
 
-\item{verbose}{logical, should messages be discplayed}
+\item{verbose}{logical, should messages be displayed}
 
 \item{digits}{integer, digits to round return value to}
 }
@@ -77,11 +77,12 @@ Reference models are available for the following metrics:
      Under review by Investigative Radiology, 2024.
 }
 \examples{
+\dontshow{if (requireNamespace("adiposerefdata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 bodycomp_reference(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
                   level=c("T5","L3"), age=c(42,68), measurement=c(100,200),
                   type = "percentile")
 
-
+\dontshow{\}) # examplesIf}
 }
 \author{
 J. Peter Marquardt

@@ -36,10 +36,11 @@ numeric, corresponding percentile
 For a given constellation of metric, sex, vertebral level, and age returns the ratio of actual and expected value (percentile 50) in percent
 }
 \examples{
+\dontshow{if (requireNamespace("adiposerefdata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 percent_predicted(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
                   level=c("T5","L3"), age=c(42,68), measurement=c(100,200))
 
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 [bodycomp_reference()]
