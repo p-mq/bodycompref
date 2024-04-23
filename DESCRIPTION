@@ -1,7 +1,7 @@
 Package: bodycompref
 Type: Package
 Title: Reference values for CT-Assessed Body Composition
-Version: 1.1.0
+Version: 2.0.0
 Authors@R: 
   person(given = "J. Peter",
          family = "Marquardt",
@@ -9,7 +9,8 @@ Authors@R:
          email = "peter@kmarquardt.de",
          comment = c(ORCID = "0000-0002-5596-1357"))
 Maintainer: J. Peter Marquardt <peter@kmarquardt.de>
-Description: Tool to get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort. 
+Description: Tool to get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort.
+  Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata'
   For more information on the underlying research, please visit our website which also includes a graphical interface.
 URL: https://bodycomp-metrics.mgh.harvard.edu, https://github.com/p-mq/bodycompref
 Depends: R (>= 4.0.0)
@@ -24,5 +25,11 @@ LazyData: true
 RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0),
-    usethis
+    usethis,
+    adiposerefdata,
+    musclerefdata,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
+Additional_repositories: https://p-mq.github.io/drat
+VignetteBuilder: knitr

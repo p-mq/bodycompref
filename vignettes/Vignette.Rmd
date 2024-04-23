@@ -1,0 +1,85 @@
+---
+title: "Using bodycompref"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using bodycompref}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Using bodycomprefdata
+
+## Purpose
+
+_bodycompref_ aims to provide a fast, batch-compatible way to calculate different versions of reference values of CT-assessed skeletal muscle and adipose tissue.
+
+Briefly, the underlying LMSP models model the distribution of a body composition metric (e.g. cross-sectional skeletal muscle area at the T5 vertebral level) based on age. Separate models are available for females and males. For more information about the underlying research and a vidual representation please visit https://bodycomp-metrics.mgh.harvard.edu
+
+If you use this package, please make sure you credit us with a citation:
+
+```{r}
+citation("bodycompref")
+```
+
+
+
+## Installation
+
+To install the package from CRAN use the usual installation:
+```{r, eval=FALSE}
+install.packages("bodycompref")
+```
+
+Alternatively, install directly from github:
+```{r, eval = FALSE}
+installr::install.github("https://github.com/p-mq/bodycompref")
+```
+
+Since CRAN has strict limits on file size, the reference LMSP models for the reference values are stored in their own data repositories. Install these using the following commands:
+```{r, eval=FALSE}
+# Models for adipose tissue, ~60Mb
+install.packages("adiposerefdata", repos="https://yourname.github.io/drat")
+# Models for skeletal muscle, ~45Mb
+install.packages("musclerefdata", repos="https://yourname.github.io/drat")
+```
+
+Alternatively, version 1.0.0 and 1.1.0 still contain all the models inside the main package are still available on [GitHub](https://github.com/p-mq/bodycompref/releases)
+
+
+## Usage
+
+You can use a dedicated method to calculate each of the four possible transformations:
+
++ _reference_percentile_ calculates the percentile of a given measurement, i.e. how many out of 100 evenly distributed values would be lower
++ _reference_z_scores_ calculates how many standard deviations above (positive values) or below (negative values) the median a given value is
++ _percent_predicted_ calculates how many percent of the _expected_ (i.e. median) value a given value is, e.g. 200 for a value double that of the median
++ _reference_values_ reverses these transformations and returns the absolute measurement value corresponding to a given input (either a percentile or a z-score)
+
+Alternatively, you can use the wrapper _bodycomp_reference_, which wraps all four of these functions, and specify the desired return.
+
+Input parameters are mostly equal among all functions. Data inputs can be passed as vectors to use batch-processing. Naturally, vectors need to be of equal length:
+
++ metric: A character (vector), body composition metric. Available metrics are "CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", and "VAT_SAT_ratio"
++ sex: A character (vector), ""Female" or "Male"
++ level: A character (vector), target vertebral level, options are "T5", "T8", "T10", "L3". Please note that for metrics derived from visceral adipose tissue only L3 is available.
++ age: An integer (vector), age. Please not that the age range is restricted to 39-79 (see citation paper for more information) 
++ measurement: A numeric (vector), raw value of measurement
+
+_reference_values_ replaces the input 'measurement' with one of the following:
++ percentile: Anumeric (vector), percentile to return value for. If both percentile and z_score are given, only percentile is evaluated
++ z_score numeric (vector), z score to return value for. If both percentile and z_score are given, only percentile is evaluated
+
+In a practical setting, batch-calculation of percent of predicted value for cross-sectional fat area of a 40-yo Female and a 60-yo male might look like this:
+
+```{r, eval = requireNamespace("adiposerefdata", quietly = TRUE)}
+# Creating example data
+metric <- c("CSFA", "CSFA")
+sex <- c("Female", "Male")
+level <- c("T5", "T8")
+age <- c(40, 60)
+measurement <- c(109, 220)
+
+# Actual calculation
+percent_predicted(metric, sex, level, age, measurement)
+```
+
