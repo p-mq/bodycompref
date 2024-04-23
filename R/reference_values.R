@@ -1,3 +1,38 @@
+#' Get reference models
+#'
+#' For a given combination of metric, sex, and level return the appropriate LMSP model.
+#' Imports the non-CRAN packages musclerefdata and adiposerefdata
+#'
+#' @param fitted_metric string, name of fitted metric (abbreviation, includes a lowercase b prefix for metrics with box-cox-transformation)
+#' @param sex character, "Male" or "Female"
+#' @param level string, vertebral level, T5, T8, T10, or L3
+#'
+#' @return LMSP model
+#'
+#' @author J.Peter Marquardt
+.Get_reference_model <- function(fitted_metric, sex, level) {
+
+  if(fitted_metric %in% c("CSMA", "SMI", "SMRA", "SMG")) {
+    if (requireNamespace("musclerefdata", quietly = TRUE)) {
+      model <- musclerefdata::muscle_models[[paste(fitted_metric, sex, level, sep='_')]]
+      return(model)
+    }
+    else message("To use this functionality, please install the musclerefdata package using the command:\ninstall.packages(\"musclerefdata\", repos = \"https://p-mq.github.io/drat\")")
+    return(NULL)
+  }
+
+  else if(fitted_metric %in% c("bCSFA", "SATI", "bSATI", "bSATRA", "bSATG", "bCSVFA", "bVATI", "bVATRA", "bVATG", "bTAT", "bTATI", "bVAT_SAT_ratio")) {
+    if (requireNamespace("musclerefdata", quietly = TRUE)) {
+      model <- adiposerefdata::fat_models[[paste(fitted_metric, sex, level, sep='_')]]
+      return(model)
+    }
+    else message("To use this functionality, please install the adiposerefdata package using the command\ninstall.packages(\"adiposerefdata\", repos = \"https://p-mq.github.io/drat\")")
+    return(NULL)
+  }
+
+  else stop("Fitted metric not in list of known fitted metrics")
+}
+
 
 #' Get percentile for a given combination of model and measurement
 #'
@@ -59,7 +94,9 @@
   else fitted_metric <- metric
 
 
-  model <- reference_models[[paste(fitted_metric, sex, level, sep='_')]]
+  model <- .Get_reference_model(fitted_metric, sex, level)
+  if (is.null(model)) return(NA)  # quiet error handling if data repository is not available
+
   pred_z <- gamlss::z.scores(model, y = fitted_measurement, x = age)
   pred_percentile <- round(stats::pnorm(pred_z) * 100, digits = digits)
 
@@ -129,7 +166,9 @@
   else fitted_metric <- metric
 
 
-  model <- reference_models[[paste(fitted_metric, sex, level, sep='_')]]
+  model <- .Get_reference_model(fitted_metric, sex, level)
+  if (is.null(model)) return(NA)  # quiet error handling if data repository is not available
+
   pred_z <- round(gamlss::z.scores(model, y = fitted_measurement, x = age), digits = digits)
 
 
@@ -184,7 +223,10 @@
   if (is.null(percentile)) {
     assertthat::is.number(z_score)
 
-    model <- reference_models[[paste(fitted_metric, sex, level, sep='_')]]
+    model <- .Get_reference_model(fitted_metric, sex, level)
+    if (is.null(model)) return(NA)  # quiet error handling if data repository is not available
+
+
     percentile <- stats::pnorm(z_score) * 100
     pred_measurement <- gamlss::centiles.pred(model, xname = "age", xvalues = age, cent = percentile)[1, as.character(percentile)]
 
@@ -205,7 +247,9 @@
   else {
     assertthat::is.count(percentile)
 
-    model <- reference_models[[paste(fitted_metric, sex, level, sep='_')]]
+    model <- .Get_reference_model(fitted_metric, sex, level)
+    if (is.null(model)) return(NA)  # quiet error handling if data repository is not available
+
     pred_measurement <- gamlss::centiles.pred(model, xname = "age", xvalues = age, cent = percentile)[1, as.character(percentile)]
 
     # Reversing pre-fitting transforms
@@ -335,6 +379,10 @@
 #'
 #' @return numeric, corresponding percentile
 #'
+#' @examplesIf requireNamespace("adiposerefdata", quietly = TRUE)
+#' reference_percentiles(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
+#'                  level=c("T5","L3"), age=c(42,68), measurement=c(50,50))
+#'
 #' @seealso [bodycomp_reference()]
 #'
 #' @importFrom assertthat assert_that
@@ -352,6 +400,8 @@ reference_percentiles <- function(metric, sex, level, age, measurement, verbose=
   percentiles <- sapply(seq(1, length(metric)), function(r) .Get_reference_percentile(metric = metric[r], sex = sex[r], level = level[r],
                                                                                 age = age[r], measurement = measurement[r],
                                                                                 verbose = verbose, digits = digits))
+
+  if(any(is.na(percentiles))) warning("Some values have returned NA values")
 
 
   return(percentiles)
@@ -373,6 +423,11 @@ reference_percentiles <- function(metric, sex, level, age, measurement, verbose=
 #'
 #' @return numeric, corresponding z-score
 #'
+#' @examplesIf requireNamespace("adiposerefdata", quietly = TRUE)
+#' reference_z_scores(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
+#'                  level=c("T5","L3"), age=c(42,68), measurement=c(50,50))
+#'
+#'
 #' @seealso [bodycomp_reference()]
 #'
 #' @importFrom assertthat assert_that
@@ -390,6 +445,8 @@ reference_z_scores <- function(metric, sex, level, age, measurement, verbose=FAL
   z_scores <- sapply(seq(1, length(metric)), function(r) .Get_reference_z_score(metric = metric[r], sex = sex[r], level = level[r],
                                                                           age = age[r], measurement = measurement[r],
                                                                           verbose = verbose, digits = digits))
+
+  if(any(is.na(z_scores))) warning("Some values have returned NA values")
 
 
   return(z_scores)
@@ -412,7 +469,7 @@ reference_z_scores <- function(metric, sex, level, age, measurement, verbose=FAL
 #'
 #' @return numeric, corresponding percentile
 #'
-#' @examples
+#' @examplesIf requireNamespace("adiposerefdata", quietly = TRUE)
 #' reference_values(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
 #'                  level=c("T5","L3"), age=c(42,68), percentile=c(50,50))
 #'
@@ -442,6 +499,8 @@ reference_values <- function(metric, sex, level, age, percentile=NULL, z_score=N
                                                                         age = age[r], percentile = percentile[r],
                                                                         verbose = verbose, digits = digits))
 
+  if(any(is.na(ref_vals))) warning("Some values have returned NA values")
+
 
   return(ref_vals)
 
@@ -462,7 +521,7 @@ reference_values <- function(metric, sex, level, age, percentile=NULL, z_score=N
 #'
 #' @return numeric, corresponding percentile
 #'
-#' @examples
+#' @examplesIf requireNamespace("adiposerefdata", quietly = TRUE)
 #' percent_predicted(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
 #'                   level=c("T5","L3"), age=c(42,68), measurement=c(100,200))
 #'
@@ -484,6 +543,8 @@ percent_predicted <- function(metric, sex, level, age, measurement, verbose=FALS
   perc_pred <- sapply(seq(1, length(metric)), function(r) .Get_percent_predicted(metric = metric[r], sex = sex[r], level = level[r],
                                                                            age = age[r], measurement = measurement[r],
                                                                            verbose = verbose, digits = digits))
+
+  if(any(is.na(perc_pred))) warning("Some values have returned NA values")
 
 
   return(perc_pred)
@@ -534,12 +595,12 @@ percent_predicted <- function(metric, sex, level, age, measurement, verbose=FALS
 #' @param measurement numeric (vector), raw value of measurement
 #' @param percentile numeric (vector), percentile to return value for. If both percentile and z_score are given, only percentile is evaluated
 #' @param z_score numeric (vector), z score to return value for. If both percentile and z_score are given, only percentile is evaluated
-#' @param verbose logical, should messages be discplayed
+#' @param verbose logical, should messages be displayed
 #' @param digits integer, digits to round return value to
 #'
 #' @return numeric, corresponding percentile
 #'
-#' @examples
+#' @examplesIf requireNamespace("adiposerefdata", quietly = TRUE)
 #' bodycomp_reference(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
 #'                   level=c("T5","L3"), age=c(42,68), measurement=c(100,200),
 #'                   type = "percentile")
@@ -576,6 +637,6 @@ bodycomp_reference <- function(metric, sex, level, age, type, measurement=NULL, 
       return(reference_values(metric = metric, sex = sex, level = level, age = age, percentile = percentile, verbose = verbose, digits = digits))
     }
   }
-  stop("Default elephant in Cairo") # All ases should have already initiated a return
+  stop("Default elephant in Cairo") # All cases should have already initiated a return
 
 }
