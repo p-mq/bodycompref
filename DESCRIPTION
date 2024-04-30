@@ -9,9 +9,18 @@ Authors@R:
          email = "peter@kmarquardt.de",
          comment = c(ORCID = "0000-0002-5596-1357"))
 Maintainer: J. Peter Marquardt <peter@kmarquardt.de>
-Description: Tool to get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort.
-  Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata'
+Description: Get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort.
+  Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata'.
   For more information on the underlying research, please visit our website which also includes a graphical interface.
+  The models and underlying data are descibed in
+  "Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT",
+  Marquardt JP, Tonnesen PE, Mercaldo ND, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ,
+  under review by Investigative Radiology, 2024,
+  and
+  "Muscle Reference Values from Thoracic and Abdominal CT for Sarcopenia Assessment [column] The Framingham Heart Study",
+  Tonnesen PE, Mercaldo ND, Tahir I, Dietrich ASW, Amari W, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ,
+  Investigative Radiology, 2023,
+  <doi:10.1097/RLI.0000000000001012>.
 URL: https://bodycomp-metrics.mgh.harvard.edu, https://github.com/p-mq/bodycompref
 Depends: R (>= 4.0.0)
 Imports:
