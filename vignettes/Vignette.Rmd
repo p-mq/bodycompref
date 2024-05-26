@@ -80,6 +80,6 @@ age <- c(40, 60)
 measurement <- c(109, 220)
 
 # Actual calculation
-percent_predicted(metric, sex, level, age, measurement)
+bodycompref::percent_predicted(metric, sex, level, age, measurement)
 ```
 

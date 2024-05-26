@@ -13,13 +13,13 @@ Description: Get z-scores, percentiles, absolute values, and percent of predicte
   Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata'.
   For more information on the underlying research, please visit our website which also includes a graphical interface.
   The models and underlying data are descibed in
+  Marquardt JP et al.(2024),
   "Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT",
-  Marquardt JP, Tonnesen PE, Mercaldo ND, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ,
-  under review by Investigative Radiology, 2024,
+  *Investigative Radiology*
   and
+  Tonnesen PE et al. (2023),
   "Muscle Reference Values from Thoracic and Abdominal CT for Sarcopenia Assessment [column] The Framingham Heart Study",
-  Tonnesen PE, Mercaldo ND, Tahir I, Dietrich ASW, Amari W, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ,
-  Investigative Radiology, 2023,
+  *Investigative Radiology*,
   <doi:10.1097/RLI.0000000000001012>.
 URL: https://bodycomp-metrics.mgh.harvard.edu, https://github.com/p-mq/bodycompref
 Depends: R (>= 4.0.0)
@@ -31,7 +31,7 @@ Imports:
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Suggests: 
     testthat (>= 3.0.0),
     usethis,

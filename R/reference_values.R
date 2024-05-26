@@ -22,7 +22,7 @@
   }
 
   else if(fitted_metric %in% c("bCSFA", "SATI", "bSATI", "bSATRA", "bSATG", "bCSVFA", "bVATI", "bVATRA", "bVATG", "bTAT", "bTATI", "bVAT_SAT_ratio")) {
-    if (requireNamespace("musclerefdata", quietly = TRUE)) {
+    if (requireNamespace("adiposerefdata", quietly = TRUE)) {
       model <- adiposerefdata::fat_models[[paste(fitted_metric, sex, level, sep='_')]]
       return(model)
     }
