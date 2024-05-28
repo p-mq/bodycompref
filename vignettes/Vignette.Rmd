@@ -7,7 +7,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-# Using bodycomprefdata
+# Using bodycompref
 
 ## Purpose
 

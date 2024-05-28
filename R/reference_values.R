@@ -580,12 +580,12 @@ percent_predicted <- function(metric, sex, level, age, measurement, verbose=FALS
 #'  Measurement values must be >= -124 for SATRA and VATRA, <= -1 for SATG and VATG, and >= 1 for all other metrics.
 #'
 #'  The reference values are based on LMSP models constructed from the Framingham Heart Study published in the following publications:
+#'    - Marquardt JP, Tonnesen PE, Mercaldo ND, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
+#'      Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT.
+#'      Investigative Radiology, 2024.
 #'    - Tonnesen PE, Mercaldo ND, Tahir I, Dietrich ASW, Amari W, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
 #'      Muscle Reference Values from Thoracic and Abdominal CT for Sarcopenia Assessment: The Framingham Heart Study.
 #'      Investigative Radiology, 2023.
-#'    - Marquardt JP, Tonnesen PE, Mercaldo ND, Graur A, Allaire B, Bouxsein ML, Samelson EJ, Kiel DP, Fintelmann FJ.
-#'      Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT.
-#'      Under review by Investigative Radiology, 2024.
 #'
 #' @param metric character (vector), body composition metric.
 #' @param sex character (vector), ""Female" or "Male"
