@@ -1,11 +1,22 @@
 ---
-title: "Using bodycompref"
+title: "getting_started"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using bodycompref}
+  %\VignetteIndexEntry{getting_started}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(bodycompref)
+```
 
 # Using bodycompref
 
@@ -32,16 +43,19 @@ install.packages("bodycompref")
 
 Alternatively, install directly from github:
 ```{r, eval = FALSE}
-installr::install.github("https://github.com/p-mq/bodycompref")
+install.packages("devtools")
+devtools::install_github("p-mq/bodycompref")
 ```
 
 Since CRAN has strict limits on file size, the reference LMSP models for the reference values are stored in their own data repositories. Install these using the following commands:
 ```{r, eval=FALSE}
 # Models for adipose tissue, ~60Mb
-install.packages("adiposerefdata", repos="https://yourname.github.io/drat")
+install.packages("adiposerefdata", repos="https://p-mq.github.io/drat")
 # Models for skeletal muscle, ~45Mb
-install.packages("musclerefdata", repos="https://yourname.github.io/drat")
+install.packages("musclerefdata", repos="https://p-mq.github.io/drat")
 ```
+
+Note that this option might require installation of the *drat* package.
 
 Alternatively, version 1.0.0 and 1.1.0 still contain all the models inside the main package are still available on [GitHub](https://github.com/p-mq/bodycompref/releases)
 
@@ -66,7 +80,7 @@ Input parameters are mostly equal among all functions. Data inputs can be passed
 + measurement: A numeric (vector), raw value of measurement
 
 _reference_values_ replaces the input 'measurement' with one of the following:
-+ percentile: Anumeric (vector), percentile to return value for. If both percentile and z_score are given, only percentile is evaluated
++ percentile: A numeric (vector), percentile to return value for. If both percentile and z_score are given, only percentile is evaluated
 + z_score numeric (vector), z score to return value for. If both percentile and z_score are given, only percentile is evaluated
 
 In a practical setting, batch-calculation of percent of predicted value for cross-sectional fat area of a 40-yo Female and a 60-yo male might look like this:
@@ -82,4 +96,3 @@ measurement <- c(109, 220)
 # Actual calculation
 bodycompref::percent_predicted(metric, sex, level, age, measurement)
 ```
-
