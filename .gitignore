@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 model_data
+/doc/
+/Meta/
+inst/doc

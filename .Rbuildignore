@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 model_data
 data-raw
+^doc$
+^Meta$
