@@ -24,7 +24,7 @@ library(bodycompref)
 
 _bodycompref_ aims to provide a fast, batch-compatible way to calculate different versions of reference values of CT-assessed skeletal muscle and adipose tissue.
 
-Briefly, the underlying LMSP models model the distribution of a body composition metric (e.g. cross-sectional skeletal muscle area at the T5 vertebral level) based on age. Separate models are available for females and males. For more information about the underlying research and a vidual representation please visit https://bodycomp-metrics.mgh.harvard.edu
+Briefly, the underlying LMSP models model the distribution of a body composition metric (e.g. cross-sectional skeletal muscle area at the T5 vertebral level) based on age. Separate models are available for females and males. For more information about the underlying research and a visual representation please visit https://bodycomp-metrics.mgh.harvard.edu
 
 If you use this package, please make sure you credit us with a citation:
 

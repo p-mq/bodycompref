@@ -1,7 +1,7 @@
 Package: bodycompref
 Type: Package
 Title: Reference Values for CT-Assessed Body Composition
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: 
   person(given = "J. Peter",
          family = "Marquardt",

@@ -63,7 +63,7 @@
   assertthat::is.number(measurement)
   assertthat::assert_that(is.logical(verbose))
   assertthat::is.count(digits)
-  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG")) {
+  if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
   # Make sure measurement value is in the supported range
@@ -72,6 +72,9 @@
   }
   if (metric %in% c("SATRA", "VATRA")) {
     if (measurement < -124) stop("Measurement must be >= -124")
+  }
+  if (metric == "VAT_SAT_ratio") {
+    if (measurement <= 0 ) stop("Measurement must be > 0")
   }
   else {
     if (measurement < 1) stop("Measurement must be >= 1")
@@ -144,6 +147,9 @@
   }
   if (metric %in% c("SATRA", "VATRA")) {
     if (measurement < -124) stop("Measurement must be >= -124")
+  }
+  if (metric == "VAT_SAT_ratio") {
+    if (measurement <= 0 ) stop("Measurement must be > 0")
   }
   else {
     if (measurement < 1) stop("Measurement must be >= 1")
@@ -309,6 +315,9 @@
   }
   if (metric %in% c("SATRA", "VATRA")) {
     if (measurement < -124) stop("Measurement must be >= -124")
+  }
+  if (metric == "VAT_SAT_ratio") {
+    if (measurement <= 0 ) stop("Measurement must be > 0")
   }
   else {
     if (measurement < 1) stop("Measurement must be >= 1")
