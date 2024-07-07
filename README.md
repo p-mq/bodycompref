@@ -5,9 +5,10 @@ This R package allows batch calculation of reference values and derived metrics 
 Please also refer to our website including additional information and a graphical representation: https://bodycomp-metrics.mgh.harvard.edu
 
 Reference values are based on the following publications:
-Marquardt JP et al.(2024),
+Marquardt JP et al.(2025),
 "Subcutaneous and Visceral adipose tissue Reference Values from Framingham Heart Study Thoracic and Abdominal CT",
-*Investigative Radiology*
+*Investigative Radiology*,
+<doi:10.1097/RLI.0000000000001104>
 and
 Tonnesen PE et al. (2023),
 "Muscle Reference Values from Thoracic and Abdominal CT for Sarcopenia Assessment [column] The Framingham Heart Study",
