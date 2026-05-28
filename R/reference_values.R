@@ -58,11 +58,11 @@
   assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3", "TAT", "TATI", "VAT_SAT_ratio"))
-  assertthat::is.count(age)
+  assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 80)
-  assertthat::is.number(measurement)
+  assertthat::assert_that(assertthat::is.number(measurement))
   assertthat::assert_that(is.logical(verbose))
-  assertthat::is.count(digits)
+  assertthat::assert_that(assertthat::is.count(digits))
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
@@ -133,11 +133,11 @@
   assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
-  assertthat::is.count(age)
+  assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 80)
-  assertthat::is.number(measurement)
+  assertthat::assert_that(assertthat::is.number(measurement))
   assertthat::assert_that(is.logical(verbose))
-  assertthat::is.count(digits)
+  assertthat::assert_that(assertthat::is.count(digits))
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
@@ -210,10 +210,10 @@
   assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
-  assertthat::is.count(age)
+  assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 80)
   assertthat::assert_that(is.logical(verbose))
-  assertthat::is.count(digits)
+  assertthat::assert_that(assertthat::is.count(digits))
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
@@ -227,7 +227,7 @@
 
 
   if (is.null(percentile)) {
-    assertthat::is.number(z_score)
+    assertthat::assert_that(assertthat::is.number(z_score))
 
     model <- .Get_reference_model(fitted_metric, sex, level)
     if (is.null(model)) return(NA)  # quiet error handling if data repository is not available
@@ -251,7 +251,7 @@
     if(verbose) print(paste0("For a ", age, "-yo ", sex, ", a z-score of ", z_score, " corresponds to a ", metric, " of ", pred_measurement))
   }
   else {
-    assertthat::is.count(percentile)
+    assertthat::assert_that(assertthat::is.count(percentile))
 
     model <- .Get_reference_model(fitted_metric, sex, level)
     if (is.null(model)) return(NA)  # quiet error handling if data repository is not available
@@ -302,10 +302,10 @@
   assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
   assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
-  assertthat::is.count(age)
+  assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 80)
   assertthat::assert_that(is.logical(verbose))
-  assertthat::is.count(digits)
+  assertthat::assert_that(assertthat::is.count(digits))
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
