@@ -108,6 +108,54 @@ if (requireNamespace("adiposerefdata", quietly = TRUE)) {
     testthat::expect_error(percent_predicted(metric, sex, level, age, measurement), regexp = 'level not equal to "L3"')
   })
 
+
+  testthat::test_that("All metrics run through with plausible values", {
+    muscle_metrics <- c("CSMA", "SMI", "SMRA", "SMG")
+    adipose_area_metrics <- c("CSFA", "SATI", "CSVFA", "VATI", "TAT", "TATI", "VAT_SAT_ratio")
+    adipose_radiodensity_metrics <- c("SATRA", "VATRA")
+    adipose_gauge_metrics <- c("SATG", "VATG")
+
+    sex <- "Female"
+    level <- "L3"
+    age <- 50
+
+    for (metric in c(muscle_metrics, adipose_area_metrics)) {
+      measurement <- 100
+      testthat::expect_no_condition(percent_predicted(metric, sex, level, age, measurement))
+    }
+    for (metric in c(adipose_radiodensity_metrics, adipose_gauge_metrics)) {
+      measurement <- -100
+      testthat::expect_no_condition(percent_predicted(metric, sex, level, age, measurement))
+    }
+
+  })
+
+
+  testthat::test_that("All metrics fail with implausible values", {
+    muscle_metrics <- c("CSMA", "SMI", "SMRA", "SMG")
+    adipose_area_metrics <- c("CSFA", "SATI", "CSVFA", "VATI", "TAT", "TATI", "VAT_SAT_ratio")
+    adipose_radiodensity_metrics <- c("SATRA", "VATRA")
+    adipose_gauge_metrics <- c("SATG", "VATG")
+
+    sex <- "Female"
+    level <- "L3"
+    age <- 50
+
+    for (metric in c(muscle_metrics, adipose_area_metrics)) {
+      measurement <- -1
+      testthat::expect_error(percent_predicted(metric, sex, level, age, measurement))
+    }
+    for (metric in adipose_radiodensity_metrics) {
+      measurement <- -200
+      testthat::expect_error(percent_predicted(metric, sex, level, age, measurement))
+    }
+    for (metric in adipose_gauge_metrics) {
+      measurement <- 1
+      testthat::expect_error(percent_predicted(metric, sex, level, age, measurement))
+    }
+
+  })
+
 }
 
 # Testing if data packages are not available (CRAN)

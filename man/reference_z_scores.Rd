@@ -36,7 +36,7 @@ numeric, corresponding z-score
 For a given constellation of metric, sex, vertebral level, and age returns the corresponding z-scores for a given set of measurements
 }
 \examples{
-\dontshow{if (requireNamespace("adiposerefdata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("adiposerefdata", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 reference_z_scores(metric=c("CSFA", "CSFA"), sex=c("Female","Male"),
                  level=c("T5","L3"), age=c(42,68), measurement=c(50,50))
 
