@@ -357,7 +357,7 @@
     lambda <- NA  # Muscle metrics were not transfomed before fitting
   }
   else if(metric == "SATI" & sex == "Male" & level %in% c("T8", "T10")) {
-    lambda <- NA  # T5/8 SATI in males was not transformed before fitting
+    lambda <- NA  # T8/10 SATI in males was not transformed before fitting
   }
   else if(metric %in% c("CSFA", "SATI", "SATRA", "SATG")) {
     lambda <- lambdas[[metric]][[paste0("Sex_", sex)]][[paste0("vertebral_level_", level)]]
