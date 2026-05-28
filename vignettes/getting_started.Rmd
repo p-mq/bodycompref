@@ -76,7 +76,7 @@ Input parameters are mostly equal among all functions. Data inputs can be passed
 + metric: A character (vector), body composition metric. Available metrics are "CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", and "VAT_SAT_ratio"
 + sex: A character (vector), ""Female" or "Male"
 + level: A character (vector), target vertebral level, options are "T5", "T8", "T10", "L3". Please note that for metrics derived from visceral adipose tissue only L3 is available.
-+ age: An integer (vector), age. Please not that the age range is restricted to 39-79 (see citation paper for more information) 
++ age: An integer (vector), age. Please not that the age range is programmatically restricted to 38-80 but the data (see citation paper for more information) 
 + measurement: A numeric (vector), raw value of measurement
 
 _reference_values_ replaces the input 'measurement' with one of the following:
