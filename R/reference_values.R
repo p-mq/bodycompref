@@ -57,7 +57,7 @@
 .Get_reference_percentile <- function(metric, sex, level, age, measurement, verbose=FALSE, digits=0) {
   assertthat::assert_that(metric %in% c("CSMA", "SMI", "SMRA", "SMG", "CSFA", "SATI", "SATRA", "SATG", "CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio"))
   assertthat::assert_that(sex %in% c("Female", "Male"))
-  assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3", "TAT", "TATI", "VAT_SAT_ratio"))
+  assertthat::assert_that(level %in% c("T5", "T8", "T10", "L3"))
   assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 80)
   assertthat::assert_that(assertthat::is.number(measurement))
