@@ -3,12 +3,12 @@ Type: Package
 Title: Reference Values for CT-Assessed Body Composition
 Version: 2.0.2
 Authors@R: 
-  person(given = "Peter",
+  person(given = "Dr. Peter",
          family = "Amin Marquardt",
          role = c("aut", "cre"),
          email = "peter@kmarquardt.de",
          comment = c(ORCID = "0000-0002-5596-1357"))
-Maintainer: Peter Amin Marquardt <peter@kmarquardt.de>
+Maintainer: Dr. Peter Amin Marquardt <peter@kmarquardt.de>
 Description: Get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort.
   Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata'.
   For more information on the underlying research, please visit our website which also includes a graphical interface.
