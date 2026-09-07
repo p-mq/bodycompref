@@ -57,7 +57,7 @@ install.packages("musclerefdata", repos="https://p-mq.github.io/drat")
 
 Note that this option might require installation of the *drat* package.
 
-Alternatively, version 1.0.0 and 1.1.0 still contain all the models inside the main package are still available on [GitHub](https://github.com/p-mq/bodycompref/releases)
+_NOTE_: Due to an error in calculating the models still included in the 1.x versions, only the most recent version of the package can be used.
 
 
 ## Usage
