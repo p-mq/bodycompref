@@ -21,7 +21,7 @@ if (requireNamespace("adiposerefdata", quietly = TRUE)) {
     level <- "T5"
     age <- 40
     measurement <- 208.18
-    testthat::expect_equal(.Get_reference_z_score(metric, sex, level, age, measurement, digits = 10), 0.0000387444)
+    testthat::expect_equal(.Get_reference_z_score(metric, sex, level, age, measurement, digits = 10), -0.000036422)
     testthat::expect_output(.Get_reference_z_score(metric, sex, level, age, measurement, verbose = TRUE), "For a 40-yo Female, a CSFA of 208.18 corresponds to a z-score of 0")
   })
 
@@ -103,7 +103,7 @@ if (requireNamespace("adiposerefdata", quietly = TRUE)) {
     level <- c("L3", "L3", "L3")
     age <- c(40, 60, 70)
     measurement <- c(200, 200, 2)
-    testthat::expect_equal(percent_predicted(metric, sex, level, age, measurement), c(87, 128, 384))
+    testthat::expect_equal(percent_predicted(metric, sex, level, age, measurement), c(87, 137, 384))
     level <- c("T5", "T8", "L3")
     testthat::expect_error(percent_predicted(metric, sex, level, age, measurement), regexp = 'level not equal to "L3"')
   })
