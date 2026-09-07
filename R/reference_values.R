@@ -9,12 +9,14 @@
 #'
 #' @return LMSP model
 #'
+#' @importFrom utils installed.packages
+#'
 #' @author J.Peter Marquardt
 .Get_reference_model <- function(fitted_metric, sex, level) {
 
   if(fitted_metric %in% c("CSMA", "SMI", "SMRA", "SMG")) {
     if (requireNamespace("musclerefdata", quietly = TRUE)) {
-      if (installed.packages()["musclerefdata", "Version"] == "1.0.0") {
+      if (utils::installed.packages()["musclerefdata", "Version"] == "1.0.0") {
         stop("Please update the musclerefdata package to version 1.1.0 or higher to patch an error in calculating height-based metrics. You can do this using the command:\ninstall.packages(\"musclerefdata\", repos = \"https://p-mq.github.io/drat\")")
       }
       model <- musclerefdata::muscle_models[[paste(fitted_metric, sex, level, sep='_')]]
@@ -26,7 +28,7 @@
 
   else if(fitted_metric %in% c("bCSFA", "SATI", "bSATI", "bSATRA", "bSATG", "bCSVFA", "bVATI", "bVATRA", "bVATG", "bTAT", "bTATI", "bVAT_SAT_ratio")) {
     if (requireNamespace("adiposerefdata", quietly = TRUE)) {
-      if (installed.packages()["adiposerefdata", "Version"] == "1.0.0") {
+      if (utils::installed.packages()["adiposerefdata", "Version"] == "1.0.0") {
         stop("Please update the adiposerefdata package to version 1.1.0 or higher to patch an error in calculating height-based metrics. You can do this using the command:\ninstall.packages(\"adiposerefdata\", repos = \"https://p-mq.github.io/drat\")")
       }
       model <- adiposerefdata::fat_models[[paste(fitted_metric, sex, level, sep='_')]]
@@ -68,7 +70,7 @@
   assertthat::assert_that(38 <= age && age <= 81)
   assertthat::assert_that(assertthat::is.number(measurement))
   assertthat::assert_that(is.logical(verbose))
-  assertthat::assert_that(assertthat::is.count(digits))
+  assertthat::assert_that(assertthat::is.count(digits) || digits == 0)
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
@@ -143,7 +145,7 @@
   assertthat::assert_that(38 <= age && age <= 81)
   assertthat::assert_that(assertthat::is.number(measurement))
   assertthat::assert_that(is.logical(verbose))
-  assertthat::assert_that(assertthat::is.count(digits))
+  assertthat::assert_that(assertthat::is.count(digits) || digits == 0)
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
@@ -219,7 +221,7 @@
   assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 81)
   assertthat::assert_that(is.logical(verbose))
-  assertthat::assert_that(assertthat::is.count(digits))
+  assertthat::assert_that(assertthat::is.count(digits) || digits == 0)
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
@@ -311,7 +313,7 @@
   assertthat::assert_that(assertthat::is.count(age))
   assertthat::assert_that(38 <= age && age <= 81)
   assertthat::assert_that(is.logical(verbose))
-  assertthat::assert_that(assertthat::is.count(digits))
+  assertthat::assert_that(assertthat::is.count(digits) || digits == 0)
   if (metric %in% c("CSVFA", "VATI", "VATRA", "VATG", "TAT", "TATI", "VAT_SAT_ratio")) {
     assertthat::assert_that(level == "L3")
   }
