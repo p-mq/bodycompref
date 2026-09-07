@@ -14,6 +14,9 @@
 
   if(fitted_metric %in% c("CSMA", "SMI", "SMRA", "SMG")) {
     if (requireNamespace("musclerefdata", quietly = TRUE)) {
+      if (installed.packages()["musclerefdata", "Version"] == "1.0.0") {
+        stop("Please update the musclerefdata package to version 1.1.0 or higher to patch an error in calculating height-based metrics. You can do this using the command:\ninstall.packages(\"musclerefdata\", repos = \"https://p-mq.github.io/drat\")")
+      }
       model <- musclerefdata::muscle_models[[paste(fitted_metric, sex, level, sep='_')]]
       return(model)
     }
@@ -23,6 +26,9 @@
 
   else if(fitted_metric %in% c("bCSFA", "SATI", "bSATI", "bSATRA", "bSATG", "bCSVFA", "bVATI", "bVATRA", "bVATG", "bTAT", "bTATI", "bVAT_SAT_ratio")) {
     if (requireNamespace("adiposerefdata", quietly = TRUE)) {
+      if (installed.packages()["adiposerefdata", "Version"] == "1.0.0") {
+        stop("Please update the adiposerefdata package to version 1.1.0 or higher to patch an error in calculating height-based metrics. You can do this using the command:\ninstall.packages(\"adiposerefdata\", repos = \"https://p-mq.github.io/drat\")")
+      }
       model <- adiposerefdata::fat_models[[paste(fitted_metric, sex, level, sep='_')]]
       return(model)
     }
