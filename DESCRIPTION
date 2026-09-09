@@ -10,7 +10,7 @@ Authors@R:
          comment = c(ORCID = "0000-0002-5596-1357"))
 Maintainer: Dr. Peter Amin Marquardt <peter@kmarquardt.de>
 Description: Get z-scores, percentiles, absolute values, and percent of predicted of a reference cohort.
-  Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata'.
+  Functionality requires installing the data packages 'adiposerefdata' and 'musclerefdata' from p-mq.github.io/drat.
   For more information on the underlying research, please visit our website which also includes a graphical interface.
   The models and underlying data are described in
   Marquardt J. Peter et al (2025),
